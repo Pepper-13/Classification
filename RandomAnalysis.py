@@ -97,3 +97,11 @@ def make_graph(graphname, percs, peeps, folder=''):
     
     fig.savefig(folder + graphname + '.png', dpi=fig.dpi)
 
+    
+def overall_graph(graphname, percs, peeps, folder=''):
+    '''Creates an overall graph, given a graphname, an array of percentages, and an array of people names (for titles)
+    Add in the folder variable to save to a different folder.
+    '''
+    
+    cols = ['#0099FF','#CC3333','#FFFF66'] 
+    col_list = []
