@@ -89,4 +89,11 @@ def make_graph(graphname, percs, peeps, folder=''):
         a.get_yaxis().set_ticks([])
         a.set_title(peep, fontsize=12)
 
+    plt.tight_layout()
+    fig.subplots_adjust(bottom=0.25)
+    cbar_ax = fig.add_axes([0.15, 0.15, 0.7, 0.05])
+    cbar = fig.colorbar(colls[0], cax=cbar_ax, ticks=[.1,.2,.3,.4,.5,.6,.7,.8], orientation='horizontal')
+    cbar.ax.set_xticklabels(['10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%'])
+    
+    fig.savefig(folder + graphname + '.png', dpi=fig.dpi)
 
