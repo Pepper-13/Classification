@@ -127,3 +127,15 @@ def overall_graph(graphname, percs, peeps, folder=''):
     plt.tight_layout()
     
     fig.savefig(folder + graphname + '.png', dpi=fig.dpi)
+    
+    def percent_calc(ids, identifiers, results):
+    '''This will pull out the percentages for the different records'''
+    
+    allid = 'ALLCANDIDATES'
+    percs = []
+    
+    #Loop through each candidate
+    for j in ids:
+        percs.append(np.array([results[i][j] / results[i][allid] for i in identifiers]))
+    
+    return percs
