@@ -139,3 +139,13 @@ def overall_graph(graphname, percs, peeps, folder=''):
         percs.append(np.array([results[i][j] / results[i][allid] for i in identifiers]))
     
     return percs
+
+for year in data_in.keys():
+    results = dict_results(data_in[year]['file_res'])
+    all_verts, identifiers = shaperead(data_in[year]['file_shape'])
+    percs = percent_calc(data_in[year]['ids'], identifiers, results)
+    
+    #Now actually produce the picture I suppose
+    make_graph(graphname = year, percs = percs, peeps = data_in[year]['names'], folder = '/home/ian/Pictures/test/')
+    overall_graph(graphname = year + '_overall', percs = percs, peeps = data_in[year]['names'], folder = '/home/ian/Pictures/test/')
+
