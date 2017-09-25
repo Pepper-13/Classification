@@ -105,3 +105,25 @@ def overall_graph(graphname, percs, peeps, folder=''):
     
     cols = ['#0099FF','#CC3333','#FFFF66'] 
     col_list = []
+    
+    #Grabs the 1,2,3 colours
+    for a,b,c in zip(percs[0], percs[1], percs[2]):
+        max_val = max([a,b,c])
+        col_list.append(cols[[a,b,c].index(max_val)])
+    
+    fig, ax = plt.subplots(nrows=1, ncols=1, sharex=True, sharey=True, figsize=(8,8))
+    col = PolyCollection(all_verts, color=col_list, edgecolors='none')
+    
+    ax.add_collection(col)
+    ax.autoscale_view()
+    ax.get_xaxis().set_ticks([])
+    ax.get_yaxis().set_ticks([])
+    ax.set_title('Overall Results', fontsize=12)
+    
+    #Try to tackle the legend
+    patches = [mpatches.Patch(color=col, label=peep) for col, peep in zip(cols, peeps)]
+    plt.legend(handles=patches, fontsize=10)
+    
+    plt.tight_layout()
+    
+    fig.savefig(folder + graphname + '.png', dpi=fig.dpi)
