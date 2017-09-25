@@ -73,4 +73,20 @@ def shaperead(file_shape):
     
     return (all_verts, identifiers)
 
+def make_graph(graphname, percs, peeps, folder=''):
+    '''Creates a graph, given a graphname, an array of percentages, and an array of people names (for titles)
+    Add in the folder variable to save to a different folder.
+    '''
+    
+    fig, ax = plt.subplots(nrows=1, ncols=3, sharex=True, sharey=True, figsize=(14,7))
+    colls = [PolyCollection(all_verts, array=perc, cmap=mpl.cm.coolwarm, edgecolors='none') for perc in percs]
+    
+    for a, col, peep in zip(ax,colls,peeps):
+        col.set_clim(0,0.9)
+        a.add_collection(col)
+        a.autoscale_view()
+        a.get_xaxis().set_ticks([])
+        a.get_yaxis().set_ticks([])
+        a.set_title(peep, fontsize=12)
+
 
