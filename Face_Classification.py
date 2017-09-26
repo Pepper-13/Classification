@@ -45,5 +45,19 @@ class DataLoader(object):
             image_name = image_names_array[image_name_arg][0]
             image_names.append(image_name)
         return dict(zip(image_names, gender_classes))
+    
+    def _load_fer2013(self):
+        data = pd.read_csv(self.dataset_path)
+        pixels = data['pixels'].tolist()
+        width, height = 48, 48
+        faces = []
+        for pixel_sequence in pixels:
+            face = [int(pixel) for pixel in pixel_sequence.split(' ')]
+            face = np.asarray(face).reshape(width, height)
+            faces.append(face)
+        faces = np.asarray(faces)
+        faces = np.expand_dims(faces, -1)
+        emotions = pd.get_dummies(data['emotion']).as_matrix()
+        return faces, emotions
 
     
