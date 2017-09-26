@@ -159,6 +159,17 @@ TODO:
         image_array = np.stack(image_channel, axis=0)
         image_array = np.rollaxis(image_array, 0, 3)
         return image_array
+    
+    
+    def _gray_scale(self, image_array):
+        return image_array.dot([0.299, 0.587, 0.114])
+
+    def saturation(self, image_array):
+        gray_scale = self._gray_scale(image_array)
+        alpha = 2.0 * np.random.random() * self.brightness_var
+        alpha = alpha + 1 - self.saturation_var
+        image_array = alpha * image_array + (1 - alpha) * gray_scale[:, :, None]
+        return np.clip(image_array, 0, 255)
 
 
     
