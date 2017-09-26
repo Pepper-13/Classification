@@ -115,5 +115,28 @@ TODO:
         self.do_random_crop = do_random_crop
         self.zoom_range = zoom_range
         self.translation_factor = translation_factor
+        
+    def _do_random_crop(self, image_array):
+        """IMPORTANT: random crop only works for classification since the
+        current implementation does no transform bounding boxes"""
+        height = image_array.shape[0]
+        width = image_array.shape[1]
+        x_offset = np.random.uniform(0, self.translation_factor * width)
+        y_offset = np.random.uniform(0, self.translation_factor * height)
+        offset = np.array([x_offset, y_offset])
+        scale_factor = np.random.uniform(self.zoom_range[0],
+                                        self.zoom_range[1])
+        crop_matrix = np.array([[scale_factor, 0],
+                                [0, scale_factor]])
+
+        image_array = np.rollaxis(image_array, axis=-1, start=0)
+        image_channel = [ndi.interpolation.affine_transform(image_channel,
+                        crop_matrix, offset=offset, order=0, mode='nearest',
+                        cval=0.0) for image_channel in image_array]
+
+        image_array = np.stack(image_channel, axis=0)
+        image_array = np.rollaxis(image_array, 0, 3)
+        return image_array
+
 
     
