@@ -70,4 +70,27 @@ from utils import _imresize as imresize
 from utils import to_categorical
 import scipy.ndimage as ndi
 
+class ImageGenerator(object):
+    """ Image generator with saturation, brightness, lighting, contrast,
+    horizontal flip and vertical flip transformations. It supports
+    bounding boxes coordinates.
+TODO:
+        - Finish support for not using bounding_boxes
+            - Random crop
+            - Test other transformations
+    """
+    def __init__(self, ground_truth_data, batch_size, image_size,
+                train_keys, validation_keys,
+                ground_truth_transformer=None,
+                path_prefix=None,
+                saturation_var=0.5,
+                brightness_var=0.5,
+                contrast_var=0.5,
+                lighting_std=0.5,
+                horizontal_flip_probability=0.5,
+                vertical_flip_probability=0.5,
+                do_random_crop=False,
+                zoom_range=[0.75, 1.25],
+                translation_factor=.3):
+
     
