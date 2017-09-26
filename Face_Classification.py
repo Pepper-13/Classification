@@ -59,5 +59,15 @@ class DataLoader(object):
         faces = np.expand_dims(faces, -1)
         emotions = pd.get_dummies(data['emotion']).as_matrix()
         return faces, emotions
+    
+    
+#Generating the images
+import numpy as np
+from random import shuffle
+from utils import preprocess_input
+from utils import _imread as imread
+from utils import _imresize as imresize
+from utils import to_categorical
+import scipy.ndimage as ndi
 
     
