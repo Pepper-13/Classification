@@ -92,5 +92,28 @@ TODO:
                 do_random_crop=False,
                 zoom_range=[0.75, 1.25],
                 translation_factor=.3):
+        self.ground_truth_data = ground_truth_data
+        self.ground_truth_transformer = ground_truth_transformer
+        self.batch_size = batch_size
+        self.path_prefix = path_prefix
+        self.train_keys = train_keys
+        self.validation_keys = validation_keys
+        self.image_size = image_size
+        self.color_jitter = []
+        if saturation_var:
+            self.saturation_var = saturation_var
+            self.color_jitter.append(self.saturation)
+        if brightness_var:
+            self.brightness_var = brightness_var
+            self.color_jitter.append(self.brightness)
+        if contrast_var:
+            self.contrast_var = contrast_var
+            self.color_jitter.append(self.contrast)
+        self.lighting_std = lighting_std
+        self.horizontal_flip_probability = horizontal_flip_probability
+        self.vertical_flip_probability = vertical_flip_probability
+        self.do_random_crop = do_random_crop
+        self.zoom_range = zoom_range
+        self.translation_factor = translation_factor
 
     
