@@ -17,5 +17,12 @@ class DataLoader(object):
             self.dataset_path = '../datasets/fer2013/fer2013.csv'
         else:
             raise Exception('Incorrect dataset name, please input imdb or fer2013')
+            
+    def get_data(self):
+        if self.dataset_name == 'imdb':
+            ground_truth_data = self._load_imdb()
+        elif self.dataset_name == 'fer2013':
+            ground_truth_data = self._load_fer2013()
+        return ground_truth_data
 
     
