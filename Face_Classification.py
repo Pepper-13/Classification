@@ -170,6 +170,13 @@ TODO:
         alpha = alpha + 1 - self.saturation_var
         image_array = alpha * image_array + (1 - alpha) * gray_scale[:, :, None]
         return np.clip(image_array, 0, 255)
+    
+    def brightness(self, image_array):
+        alpha = 2 * np.random.random() * self.brightness_var
+        alpha = alpha + 1 - self.saturation_var
+        image_array = alpha * image_array
+        return np.clip(image_array, 0, 255)
+
 
 
     
