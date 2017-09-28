@@ -193,6 +193,14 @@ TODO:
         noise = eigen_vectors.dot(eigen_values * noise) * 255
         image_array = image_array + noise
         return np.clip(image_array, 0 ,255)
+    
+    
+    def horizontal_flip(self, image_array, box_corners=None):
+        if np.random.random() < self.horizontal_flip_probability:
+            image_array = image_array[:, ::-1]
+            if box_corners != None:
+                box_corners[:, [0, 2]] = 1 - box_corners[:, [2, 0]]
+        return image_array, box_corners
 
 
 
