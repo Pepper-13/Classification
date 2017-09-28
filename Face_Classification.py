@@ -346,6 +346,13 @@ from data_loader import DataLoader
 from models import simple_CNN
 from utils import preprocess_input
 
+# parameters
+batch_size = 128
+num_epochs = 1000
+training_split = .8
+dataset_name = 'fer2013'
+log_file_path = 'log_files/emotion_training.log'
+trained_models_path = '../trained_models/emotion_models/simple_CNN'
 
     
     
