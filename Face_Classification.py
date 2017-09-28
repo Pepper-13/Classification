@@ -229,6 +229,60 @@ TODO:
 
     def preprocess_images(self, image_array):
         return preprocess_input(image_array)
+    
+    def flow(self, mode='train'):
+            while True:
+                if mode =='train':
+                    shuffle(self.train_keys)
+                    keys = self.train_keys
+                elif mode == 'val' or  mode == 'demo':
+                    shuffle(self.validation_keys)
+                    keys = self.validation_keys
+                else:
+                    raise Exception('invalid mode: %s' % mode)
+
+                inputs = []
+                targets = []
+                for key in keys:
+                    image_path = self.path_prefix + key
+                    image_array = imread(image_path)
+                    image_array = imresize(image_array, self.image_size)
+
+                    num_image_channels = len(image_array.shape)
+                    if num_image_channels != 3:
+                        continue
+
+                    ground_truth = self.ground_truth_data[key]
+
+                    if self.do_random_crop:
+                        image_array = self._do_random_crop(image_array)
+
+                    image_array = image_array.astype('float32')
+                    if mode == 'train' or mode == 'demo':
+                        if self.ground_truth_transformer != None:
+                            image_array, ground_truth = self.transform(
+                                                                image_array,
+                                                                ground_truth)
+                            ground_truth = (
+                                self.ground_truth_transformer.assign_boxes(
+                                                            ground_truth))
+                        else:
+                            image_array = self.transform(image_array)[0]
+
+                    inputs.append(image_array)
+                    targets.append(ground_truth)
+                    if len(targets) == self.batch_size:
+                        inputs = np.asarray(inputs)
+                        targets = np.asarray(targets)
+                        # this will not work for boxes
+                        targets = to_categorical(targets)
+                        if mode == 'train' or mode == 'val':
+                            inputs = self.preprocess_images(inputs)
+                            yield self._wrap_in_dictionary(inputs, targets)
+                        if mode == 'demo':
+                            yield self._wrap_in_dictionary(inputs, targets)
+                        inputs = []
+                        targets = []
 
 
     
