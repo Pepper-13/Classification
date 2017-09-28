@@ -362,6 +362,12 @@ faces = preprocess_input(faces)
 num_classes = emotions.shape[1]
 input_shape = faces.shape[1:]
 
+# model parameters/compilation
+model = simple_CNN(input_shape, num_classes)
+model.compile(optimizer='adam', loss='categorical_crossentropy',
+                                        metrics=['accuracy'])
+model.summary()
+
     
     
 
