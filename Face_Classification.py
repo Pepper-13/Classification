@@ -208,6 +208,22 @@ TODO:
             if box_corners != None:
                 box_corners[:, [1, 3]] = 1 - box_corners[:, [3, 1]]
         return image_array, box_corners
+    
+    def transform(self, image_array, box_corners=None):
+        shuffle(self.color_jitter)
+        for jitter in self.color_jitter:
+            image_array = jitter(image_array)
+
+        if self.lighting_std:
+            image_array = self.lighting(image_array)
+
+        if self.horizontal_flip_probability > 0:
+            image_array, box_corners = self.horizontal_flip(image_array,
+                                                            box_corners)
+
+        if self.vertical_flip_probability > 0:
+            image_array, box_corners = self.vertical_flip(image_array,
+                                                            box_corners)
 
 
     
