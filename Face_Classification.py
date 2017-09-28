@@ -176,6 +176,14 @@ TODO:
         alpha = alpha + 1 - self.saturation_var
         image_array = alpha * image_array
         return np.clip(image_array, 0, 255)
+    
+     def contrast(self, image_array):
+        gray_scale = (self._gray_scale(image_array).mean() *
+                        np.ones_like(image_array))
+        alpha = 2 * np.random.random() * self.contrast_var
+        alpha = alpha + 1 - self.contrast_var
+        image_array = image_array * alpha + (1 - alpha) * gray_scale
+        return np.clip(image_array, 0, 255)
 
 
 
