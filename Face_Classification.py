@@ -224,6 +224,11 @@ TODO:
         if self.vertical_flip_probability > 0:
             image_array, box_corners = self.vertical_flip(image_array,
                                                             box_corners)
+            
+        return image_array, box_corners
+
+    def preprocess_images(self, image_array):
+        return preprocess_input(image_array)
 
 
     
