@@ -184,6 +184,15 @@ TODO:
         alpha = alpha + 1 - self.contrast_var
         image_array = image_array * alpha + (1 - alpha) * gray_scale
         return np.clip(image_array, 0, 255)
+    
+    def lighting(self, image_array):
+        covariance_matrix = np.cov(image_array.reshape(-1,3) /
+                                    255.0, rowvar=False)
+        eigen_values, eigen_vectors = np.linalg.eigh(covariance_matrix)
+        noise = np.random.randn(3) * self.lighting_std
+        noise = eigen_vectors.dot(eigen_values * noise) * 255
+        image_array = image_array + noise
+        return np.clip(image_array, 0 ,255)
 
 
 
