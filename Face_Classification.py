@@ -283,6 +283,10 @@ TODO:
                             yield self._wrap_in_dictionary(inputs, targets)
                         inputs = []
                         targets = []
+                        
+    def _wrap_in_dictionary(self, image_array, targets):
+        return [{'image_array_input':image_array},
+                {'predictions':targets}]
 
 
     
