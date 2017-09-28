@@ -202,6 +202,12 @@ TODO:
                 box_corners[:, [0, 2]] = 1 - box_corners[:, [2, 0]]
         return image_array, box_corners
 
+    def vertical_flip(self, image_array, box_corners=None):
+        if (np.random.random() < self.vertical_flip_probability):
+            image_array = image_array[::-1]
+            if box_corners != None:
+                box_corners[:, [1, 3]] = 1 - box_corners[:, [3, 1]]
+        return image_array, box_corners
 
 
     
