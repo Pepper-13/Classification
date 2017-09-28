@@ -354,6 +354,14 @@ dataset_name = 'fer2013'
 log_file_path = 'log_files/emotion_training.log'
 trained_models_path = '../trained_models/emotion_models/simple_CNN'
 
+# data loader
+data_loader = DataLoader(dataset_name)
+faces, emotions = data_loader.get_data()
+print(len(faces))
+faces = preprocess_input(faces)
+num_classes = emotions.shape[1]
+input_shape = faces.shape[1:]
+
     
     
 
