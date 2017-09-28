@@ -339,6 +339,14 @@ def simple_CNN(input_shape, num_classes):
     model.add(Activation('softmax',name='predictions'))
     return model
 
+#train emotional classifier
+
+from keras.callbacks import CSVLogger, ModelCheckpoint
+from data_loader import DataLoader
+from models import simple_CNN
+from utils import preprocess_input
+
+
     
     
 
