@@ -465,7 +465,31 @@ face_detection = cv2.CascadeClassifier(detection_model_path)
 emotion_classifier = load_model(emotion_model_path)
 gender_classifier = load_model(gender_model_path)
 
+frame = cv2.imread(image_path)
+gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+faces = face_detection.detectMultiScale(gray, 1.3, 5)
+for (x,y,w,h) in faces:
+    face = frame[(y - y_offset):(y + h + y_offset),
+                (x - x_offset):(x + w + x_offset)]
 
+    gray_face = gray[(y - y_offset_emotion):(y + h + y_offset_emotion),
+                    (x - x_offset_emotion):(x + w + x_offset_emotion)]
+    try:
+        face = cv2.resize(face, (48, 48))
+        gray_face = cv2.resize(gray_face, (48, 48))
+    except:
+        continue
+    face = np.expand_dims(face, 0)
+    face = preprocess_input(face)
+    gender_label_arg = np.argmax(gender_classifier.predict(face))
+    gender = gender_labels[gender_label_arg]
+
+    gray_face = preprocess_input(gray_face)
+    gray_face = np.expand_dims(gray_face, 0)
+    gray_face = np.expand_dims(gray_face, -1)
+    emotion_label_arg = np.argmax(emotion_classifier.predict(gray_face))
+    emotion = emotion_labels[emotion_label_arg]
 
     
 
