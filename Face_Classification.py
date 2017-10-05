@@ -389,6 +389,19 @@ from data_loader import DataLoader
 from models import simple_CNN
 from image_generator import ImageGenerator
 from utils import split_data
+
+# parameters
+batch_size = 32
+num_epochs = 1000
+training_split = .8
+do_random_crop = False
+num_classes = 2
+dataset_name = 'imdb'
+input_shape = (48, 48, 3)
+images_path = '../datasets/imdb_crop/'
+log_file_path = 'log_files/gender_training.log'
+trained_models_path = '../trained_models/gender_models/simple_CNN'
+
     
 
 
