@@ -501,6 +501,10 @@ for (x,y,w,h) in faces:
                     2, gender_color, 2, cv2.LINE_AA)
     cv2.putText(frame, gender, (x , y - 90 + 70), font,
                     2, gender_color, 2, cv2.LINE_AA)
+    
+    
+frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+cv2.imwrite('../images/predicted_test_image.png', frame)
 
     
 
