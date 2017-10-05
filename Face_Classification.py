@@ -460,6 +460,12 @@ y_offset_emotion = 40
 x_offset = 30
 y_offset = 60
 
+# loading models
+face_detection = cv2.CascadeClassifier(detection_model_path)
+emotion_classifier = load_model(emotion_model_path)
+gender_classifier = load_model(gender_model_path)
+
+
 
     
 
