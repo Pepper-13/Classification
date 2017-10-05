@@ -381,6 +381,14 @@ model.fit(faces, emotions, batch_size, num_epochs,verbose=1,
                                         callbacks=callbacks,
                         validation_split=(1-training_split),
                                                 shuffle=True)  
+
+#train_gender_classifier
+
+from keras.callbacks import CSVLogger, ModelCheckpoint
+from data_loader import DataLoader
+from models import simple_CNN
+from image_generator import ImageGenerator
+from utils import split_data
     
 
 
