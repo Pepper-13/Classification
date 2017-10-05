@@ -368,7 +368,19 @@ model.compile(optimizer='adam', loss='categorical_crossentropy',
                                         metrics=['accuracy'])
 model.summary()
 
-    
+# model callbacks
+csv_logger = CSVLogger(log_file_path, append=False)
+model_names = trained_models_path + '.{epoch:02d}-{val_acc:.2f}.hdf5'
+model_checkpoint = ModelCheckpoint(model_names,
+                            'val_acc', verbose=1,
+                                save_best_only=True)
+callbacks = [model_checkpoint, csv_logger]
+
+# model training
+model.fit(faces, emotions, batch_size, num_epochs,verbose=1,
+                                        callbacks=callbacks,
+                        validation_split=(1-training_split),
+                                                shuffle=True)  
     
 
 
