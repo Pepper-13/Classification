@@ -402,6 +402,18 @@ images_path = '../datasets/imdb_crop/'
 log_file_path = 'log_files/gender_training.log'
 trained_models_path = '../trained_models/gender_models/simple_CNN'
 
+# data loader
+data_loader = DataLoader(dataset_name)
+ground_truth_data = data_loader.get_data()
+train_keys, val_keys = split_data(ground_truth_data, training_split)
+image_generator = ImageGenerator(ground_truth_data, batch_size,
+                                input_shape[:2],
+                                train_keys, val_keys, None,
+                                path_prefix=images_path,
+                                vertical_flip_probability=0,
+                                do_random_crop=do_random_crop)
+
+
     
 
 
