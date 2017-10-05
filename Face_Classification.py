@@ -490,6 +490,17 @@ for (x,y,w,h) in faces:
     gray_face = np.expand_dims(gray_face, -1)
     emotion_label_arg = np.argmax(emotion_classifier.predict(gray_face))
     emotion = emotion_labels[emotion_label_arg]
+    
+    if gender == gender_labels[0]:
+        gender_color = (0, 0, 255)
+    else:
+        gender_color = (255, 0, 0)
+
+    cv2.rectangle(frame, (x, y), (x + w, y + h), gender_color, 2)
+    cv2.putText(frame, emotion, (x, y - 90), font,
+                    2, gender_color, 2, cv2.LINE_AA)
+    cv2.putText(frame, gender, (x , y - 90 + 70), font,
+                    2, gender_color, 2, cv2.LINE_AA)
 
     
 
