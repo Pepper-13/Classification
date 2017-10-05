@@ -413,6 +413,30 @@ image_generator = ImageGenerator(ground_truth_data, batch_size,
                                 vertical_flip_probability=0,
                                 do_random_crop=do_random_crop)
 
+# model parameters/compilation
+model = simple_CNN(input_shape, num_classes)
+model.compile(optimizer='adam',
+            loss='categorical_crossentropy',
+            metrics=['accuracy'])
+model.summary()
+
+# model callbacks
+csv_logger = CSVLogger(log_file_path, append=False)
+model_names = trained_models_path + '.{epoch:02d}-{val_acc:.2f}.hdf5'
+model_checkpoint = ModelCheckpoint(model_names,
+                                   monitor='val_loss',
+                                   verbose=1,
+                                   save_best_only=True,
+                                   save_weights_only=False)
+
+# model training
+model.fit_generator(image_generator.flow(mode='train'),
+                    steps_per_epoch=int(len(train_keys) / batch_size),
+                    epochs=num_epochs, verbose=1,
+                    callbacks=[csv_logger, model_checkpoint],
+                    validation_data= image_generator.flow('val'),
+                    validation_steps=int(len(val_keys) / batch_size))
+
 
     
 
