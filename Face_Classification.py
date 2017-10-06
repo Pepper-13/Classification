@@ -551,6 +551,22 @@ while True:
                         (x - x_offset_emotion):(x + w + x_offset_emotion)]
         try:
             face = cv2.resize(face, (48, 48))
+            gray_face = cv2.resize(gray_face, (48, 48))
+        except:
+            continue
+        face = np.expand_dims(face, 0)
+        face = preprocess_input(face)
+        gender_label_arg = np.argmax(gender_classifier.predict(face))
+        gender = gender_labels[gender_label_arg]
+        gender_label_window.append(gender)
+
+        gray_face = preprocess_input(gray_face)
+        gray_face = np.expand_dims(gray_face, 0)
+        gray_face = np.expand_dims(gray_face, -1)
+        emotion_label_arg = np.argmax(emotion_classifier.predict(gray_face))
+        emotion = emotion_labels[emotion_label_arg]
+        emotion_label_window.append(emotion)
+
 
     
 
