@@ -514,6 +514,18 @@ from statistics import mode
 from utils import preprocess_input
 from utils import get_labels
 
+# parameters
+detection_model_path = '../trained_models/detection_models/haarcascade_frontalface_default.xml'
+emotion_model_path = '../trained_models/emotion_models/simple_CNN.530-0.65.hdf5'
+gender_model_path = '../trained_models/gender_models/simple_CNN.81-0.96.hdf5'
+emotion_labels = get_labels('fer2013')
+gender_labels = get_labels('imdb')
+frame_window = 10
+x_offset_emotion = 20
+y_offset_emotion = 40
+x_offset = 30
+y_offset = 60
+
 
     
 
