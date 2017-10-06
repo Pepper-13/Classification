@@ -506,6 +506,15 @@ for (x,y,w,h) in faces:
 frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 cv2.imwrite('../images/predicted_test_image.png', frame)
 
+#Video Test
+import cv2
+from keras.models import load_model
+import numpy as np
+from statistics import mode
+from utils import preprocess_input
+from utils import get_labels
+
+
     
 
 
