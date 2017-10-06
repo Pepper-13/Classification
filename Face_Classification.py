@@ -539,6 +539,18 @@ cv2.namedWindow('window_frame')
 emotion_label_window = []
 gender_label_window = []
 while True:
+    _, frame = video_capture.read()
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    faces = face_detection.detectMultiScale(gray, 1.3, 5)
+    for (x,y,w,h) in faces:
+        face = frame[(y - y_offset):(y + h + y_offset),
+                    (x - x_offset):(x + w + x_offset)]
+
+        gray_face = gray[(y - y_offset_emotion):(y + h + y_offset_emotion),
+                        (x - x_offset_emotion):(x + w + x_offset_emotion)]
+        try:
+            face = cv2.resize(face, (48, 48))
 
     
 
