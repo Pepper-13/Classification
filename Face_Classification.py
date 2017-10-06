@@ -587,6 +587,19 @@ while True:
                         .7, gender_color, 1, cv2.LINE_AA)
         cv2.putText(frame, gender_mode, (x + 90, y - 30), font,
                         .7, gender_color, 1, cv2.LINE_AA)
+        
+    try:
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+        cv2.imshow('window_frame', frame)
+    except:
+        continue
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+video_capture.release()
+cv2.destroyAllWindows()
+
     
 
 
