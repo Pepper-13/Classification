@@ -531,6 +531,15 @@ face_detection = cv2.CascadeClassifier(detection_model_path)
 emotion_classifier = load_model(emotion_model_path)
 gender_classifier = load_model(gender_model_path)
 
+# video 
+video_capture = cv2.VideoCapture(0)
+font = cv2.FONT_HERSHEY_SIMPLEX
+cv2.startWindowThread()
+cv2.namedWindow('window_frame')
+emotion_label_window = []
+gender_label_window = []
+while True:
+
     
 
 
