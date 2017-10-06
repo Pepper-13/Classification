@@ -567,7 +567,26 @@ while True:
         emotion = emotion_labels[emotion_label_arg]
         emotion_label_window.append(emotion)
 
+        if len(gender_label_window) >= frame_window:
+            emotion_label_window.pop(0)
+            gender_label_window.pop(0)
+        try:
+            emotion_mode = mode(emotion_label_window)
+            gender_mode = mode(gender_label_window)
+        except:
+            continue
+        if gender_mode == gender_labels[0]:
+            gender_color = (255, 0, 0)
+        else:
+            gender_color = (0, 255, 0)
 
+        #cv2.rectangle(frame, (x - x_offset, y - y_offset),
+                    #(x + w + x_offset, y + h + y_offset),
+        cv2.rectangle(frame, (x, y), (x + w, y + h), gender_color, 2)
+        cv2.putText(frame, emotion_mode, (x, y - 30), font,
+                        .7, gender_color, 1, cv2.LINE_AA)
+        cv2.putText(frame, gender_mode, (x + 90, y - 30), font,
+                        .7, gender_color, 1, cv2.LINE_AA)
     
 
 
